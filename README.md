@@ -1,5 +1,5 @@
 # selenium-example
-An example project of selenium using ChromeWebDriver, HtmlUnitDriver, FirefoxFriver
+An example project of selenium using ChromeWebDriver
 
 
 ## Prerequisites ##
@@ -10,11 +10,20 @@ An example project of selenium using ChromeWebDriver, HtmlUnitDriver, FirefoxFri
 
 ## Execute automation tests ##
 
+Provide system property `webdriver.chrome.driver` for webdriver.
+
+`Chromedriver` for browser version 83.0.4103.97 can be found in **webdriver** directory (mac and linux).
+Otherwise visit https://chromedriver.chromium.org/downloads
+
+To run tests, execute
+
 ```bash
 mvn clean test
 ```
 
-The result looks as following:
+The result for `contenteditable` looks as following:
+
+![](docs/prosemirror_screenshot.png)
 
 ![](./docs/img/autotests.gif)
 
