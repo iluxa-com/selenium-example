@@ -23,9 +23,7 @@ mvn clean test
 
 The result for `contenteditable` looks as following:
 
-![](docs/prosemirror_screenshot.png)
-
-![](./docs/img/autotests.gif)
+![image](docs/prosemirror_screenshot.png)
 
 
 

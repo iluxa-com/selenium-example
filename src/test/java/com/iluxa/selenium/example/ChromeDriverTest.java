@@ -64,6 +64,23 @@ public class ChromeDriverTest {
         );
     }
 
+
+    @Test
+    public void testContentEditable() {
+        String url = "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_global_contenteditable";
+        String elementLocator = "[contenteditable=true]";
+        driver.get(url);
+        driver.manage().window().setSize(new Dimension(1100, 400));
+        driver.switchTo().frame(driver.findElement(By.cssSelector("#iframeResult")));
+        WebElement element = driver.findElement(By.cssSelector(elementLocator));
+        deleteText(element);
+        test(element);
+        assertTrue("input value is as expected",
+                (new WebDriverWait(driver, 5))
+                        .until((ExpectedCondition<Boolean>) d -> element.getText().contains(expectedResult))
+        );
+    }
+
     @Test
     public void testProseMirror() {
         String url = "https://prosemirror.net/examples/basic/";
@@ -71,9 +88,7 @@ public class ChromeDriverTest {
         driver.get(url);
         WebElement element = driver.findElement(By.cssSelector(elementLocator));
 
-        element.click();
-        element.sendKeys(Keys.META, "a", Keys.DELETE);
-        assertTrue("input is cleared", (new WebDriverWait(driver, 5)).until((ExpectedCondition<Boolean>) d -> element.getText().isEmpty()));
+        deleteText(element);
 
         test(element);
 
@@ -81,6 +96,11 @@ public class ChromeDriverTest {
                 (new WebDriverWait(driver, 5))
                         .until((ExpectedCondition<Boolean>) d -> element.getText().contains(expectedResult))
         );
+    }
+
+    private void deleteText(WebElement element) {
+        element.click();
+        element.sendKeys(Keys.META, "a", Keys.DELETE);
     }
 
     private void test(WebElement input){
