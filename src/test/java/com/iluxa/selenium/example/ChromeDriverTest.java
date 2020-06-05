@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Collections;
@@ -100,17 +101,24 @@ public class ChromeDriverTest {
 
     private void deleteText(WebElement element) {
         element.click();
-        element.sendKeys(Keys.META, "a", Keys.DELETE);
+//        element.sendKeys(Keys.META, "a", Keys.DELETE);
+        Actions actions = new Actions(driver);
+        actions.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL);
+        actions.sendKeys(Keys.DELETE);
+        actions.perform();
     }
 
     private void test(WebElement input){
+        Actions actions = new Actions(driver);
         input.click();
         input.sendKeys("la-la-la");
         Collections.nCopies(3, 1)
                 .forEach(i ->
-                        input.sendKeys(Keys.ARROW_LEFT));
+                        actions.sendKeys(Keys.ARROW_LEFT).perform());
+//                        input.sendKeys(Keys.ARROW_LEFT));
 
-        input.sendKeys("-lo");
+//        input.sendKeys("-lo");
+        actions.sendKeys("-lo").perform();
     }
 
     @After
