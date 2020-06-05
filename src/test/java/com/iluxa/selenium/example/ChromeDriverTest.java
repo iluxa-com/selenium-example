@@ -24,7 +24,7 @@ public class ChromeDriverTest {
     public void prepare() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "webdriver/chromedriver");
+                "webdriver/chromedriver-linux");
 
 
         final ChromeOptions chromeOptions = new ChromeOptions();
@@ -48,12 +48,30 @@ public class ChromeDriverTest {
 
     @Test
     public void testDraftJs() {
-
         String url = "https://draftjs.org/";
         String elementLocator = "[contentEditable=true]";
         driver.get(url);
         WebElement element = driver.findElement(By.cssSelector(elementLocator));
         test(element);
+        assertTrue("input value is as expected",
+                (new WebDriverWait(driver, 5))
+                        .until((ExpectedCondition<Boolean>) d -> element.getText().contains(expectedResult))
+        );
+    }
+
+    @Test
+    public void testProseMirror() {
+        String url = "https://prosemirror.net/examples/basic/";
+        String elementLocator = "[contentEditable=true]";
+        driver.get(url);
+        WebElement element = driver.findElement(By.cssSelector(elementLocator));
+
+        element.click();
+        element.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
+        assertTrue("input is cleared", (new WebDriverWait(driver, 5)).until((ExpectedCondition<Boolean>) d -> element.getText().isEmpty()));
+
+        test(element);
+
         assertTrue("input value is as expected",
                 (new WebDriverWait(driver, 5))
                         .until((ExpectedCondition<Boolean>) d -> element.getText().contains(expectedResult))
