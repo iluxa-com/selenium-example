@@ -18,11 +18,18 @@ public class ChromeDriverTest {
     public final String expectedResult = "la-la-lo-la";
 
     @Before
-    public void prepare() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "webdriver/chromedriver-linux");
+    public void prepare() throws Exception {
 
+        String osName = System.getProperty("os.name");
+        if (osName.contains("Mac OS X"))
+            System.setProperty(
+                    "webdriver.chrome.driver",
+                    "webdriver/chromedriver");
+        else if (osName.contains("Linux"))
+            System.setProperty(
+                    "webdriver.chrome.driver",
+                    "webdriver/chromedriver-linux");
+        else throw new Exception("no webdriver for: " + osName);
 
         final ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.setHeadless(true);
@@ -65,7 +72,7 @@ public class ChromeDriverTest {
         WebElement element = driver.findElement(By.cssSelector(elementLocator));
 
         element.click();
-        element.sendKeys(Keys.CONTROL, "a", Keys.DELETE);
+        element.sendKeys(Keys.META, "a", Keys.DELETE);
         assertTrue("input is cleared", (new WebDriverWait(driver, 5)).until((ExpectedCondition<Boolean>) d -> element.getText().isEmpty()));
 
         test(element);
