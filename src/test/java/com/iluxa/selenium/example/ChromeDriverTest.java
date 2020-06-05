@@ -3,10 +3,7 @@ package com.iluxa.selenium.example;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -51,6 +48,7 @@ public class ChromeDriverTest {
         String url = "https://draftjs.org/";
         String elementLocator = "[contentEditable=true]";
         driver.get(url);
+        driver.manage().window().setSize(new Dimension(1100, 400));
         WebElement element = driver.findElement(By.cssSelector(elementLocator));
         test(element);
         assertTrue("input value is as expected",
