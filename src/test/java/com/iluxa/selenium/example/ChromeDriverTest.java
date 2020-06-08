@@ -39,7 +39,7 @@ public class ChromeDriverTest {
     }
 
     @Test
-    public void testGoogleInput() {
+    public void testGoogleInput() throws InterruptedException {
         String url = "https://google.com";
         String elementLocator = "input[name=q]";
         driver.get(url);
@@ -52,7 +52,7 @@ public class ChromeDriverTest {
     }
 
     @Test
-    public void testDraftJs() {
+    public void testDraftJs() throws InterruptedException {
         String url = "https://draftjs.org/";
         String elementLocator = "[contentEditable=true]";
         driver.get(url);
@@ -67,7 +67,7 @@ public class ChromeDriverTest {
 
 
     @Test
-    public void testContentEditable() {
+    public void testContentEditable() throws InterruptedException {
         String url = "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_global_contenteditable";
         String elementLocator = "[contenteditable=true]";
         driver.get(url);
@@ -83,7 +83,7 @@ public class ChromeDriverTest {
     }
 
     @Test
-    public void testProseMirror() {
+    public void testProseMirror() throws InterruptedException {
         String url = "https://prosemirror.net/examples/basic/";
         String elementLocator = "[contentEditable=true]";
         driver.get(url);
@@ -108,7 +108,7 @@ public class ChromeDriverTest {
         actions.perform();
     }
 
-    private void test(WebElement input){
+    private void test(WebElement input) throws InterruptedException {
         Actions actions = new Actions(driver);
         input.click();
         input.sendKeys("la-la-la");
@@ -118,7 +118,12 @@ public class ChromeDriverTest {
 //                        input.sendKeys(Keys.ARROW_LEFT));
 
 //        input.sendKeys("-lo");
-        actions.sendKeys("-lo").perform();
+//        actions.sendKeys("-lo").perform();
+        actions.sendKeys("-").perform();
+        Thread.sleep(100);
+        actions.sendKeys("l").perform();
+        Thread.sleep(100);
+        actions.sendKeys("o").perform();
     }
 
     @After
